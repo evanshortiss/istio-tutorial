@@ -459,7 +459,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>This annotation, combined with the fact that the <code>tutorial</code> namespace is part of the mesh (thanks to the <strong>ServiceMeshMemberRoll</strong> created in the Setup section) means that each microservice has an associated Istio "sidecar" to manage traffic as illustrated below. Read the Istio documentation to learn more about the <a href="https://istio.io/latest/docs/reference/config/networking/sidecar/">Sidecar</a>.</p>
+<p>This annotation, combined with the fact that the <code>tutorial</code> namespace is part of the mesh (thanks to the <strong>ServiceMeshMemberRoll</strong> created in the Setup section) means that each microservice has an associated Istio "sidecar" to manage traffic as illustrated below. Read the Istio documentation to learn more about the <a href="https://istio.io/latest/docs/concepts/traffic-management/">traffic management and sidecar (Envoy-based) proxies</a>.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="_images/architecture-basic.png" alt="architecture basic"></span></p>
@@ -524,7 +524,7 @@ data plane version: 1.9.4 (2 proxies)</code></pre>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_openshift-web-terminal">
 <div class="paragraph">
-<p>If you installed the OpenShift Web Terminal, refresh the OpenShift Web Console and start a Web Terminal using the terminal icon in the top-right.</p>
+<p>If you installed the OpenShift Web Terminal during the <a href="1setup.html#istioinstallation" class="page">Setup &amp; Installation</a>, refresh the OpenShift Web Console and start a Web Terminal using the terminal icon in the top-right.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="_images/deploy-web-terminal.png" alt="OpenShift Web Terminal"></span></p>
@@ -588,7 +588,7 @@ The OpenShift Web Terminal is not a persistent environment. The <code>istio-tuto
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Download the OpenShift CLI (<code>oc</code>) from the help menu using (<strong>?</strong> icon) in the top-right of the OpenShift Web Console.</p>
+<p>Download the OpenShift CLI (<code>oc</code>) from the help menu using (<strong>?</strong> icon) in the top-right of the OpenShift Web Console, and take note of the <strong>Copy login command</strong> link.</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/deploy-openshift-cli.png" alt="OpenShift Help and Login Command"></span></p>
 </div>
@@ -604,13 +604,13 @@ The OpenShift Web Terminal is not a persistent environment. The <code>istio-tuto
 </li>
 <li>
 <p>Execute the following command to create the <code>tutorial</code> namespace and set it as the current context:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-project tutorial ; oc project tutorial</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Before we start setting up the environment, let’s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
