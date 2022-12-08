@@ -84,7 +84,7 @@
     <a class="nav-link" href="#deployrecommendation">Deploy the Recommendation Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#redeployingcode">Updating Redeploying Code</a>
+    <a class="nav-link" href="#redeployingcode">Updating &amp; Redeploying Code</a>
   </li>
 </ul>
   </li>
@@ -451,7 +451,7 @@
 <p>This section guides you through the deployment of the three microservices used throughout the tutorial.</p>
 </div>
 <div class="paragraph">
-<p>Each of the microservice is will be deployed into the <code>tutorial</code> namespace, and is managed using a Deployment that is annotated with:</p>
+<p>Each of the microservice is will be deployed into the <code>tutorial</code> namespace, and is managed using a <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a> that is annotated with:</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
@@ -670,7 +670,7 @@ The OpenShift Web Terminal is not a persistent environment. The <code>istio-tuto
 </table>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s deploy the customer Pod with its sidecar:</p>
+<p>Deploy the customer application using the YAML files provided in the <a href="https://github.com/redhat-developer-demos/istio-tutorial">tutorial content</a>:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -702,13 +702,10 @@ The OpenShift Web Terminal is not a persistent environment. The <code>istio-tuto
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_openshift">
-<div class="paragraph">
-<p>First, create the Deployment for the customer application. Istio will inject a sidecar container when the customer service Pod is created, since the Pod spec in the <strong>Deployment.yml</strong> has the <code>sidecar.istio.io/inject: "true"</code> annotation applied.</p>
-</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Deploy the customer application using the <strong>Deployment.yml</strong>:</p>
+<p>Deploy the customer application using the <strong>Deployment.yml</strong>. This Deployment has the <code>sidecar.istio.io/inject: "true"</code> annotation, which means Istio will inject a sidecar container to manage network traffic:</p>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/istio-tutorial/blob/master/customer/kubernetes/Deployment.yml">customer/kubernetes/Deployment.yml</a> -n tutorial</code></pre>
@@ -716,7 +713,7 @@ The OpenShift Web Terminal is not a persistent environment. The <code>istio-tuto
 </div>
 </li>
 <li>
-<p>Create a Service so the customer application has a stable DNS entry:</p>
+<p>Create a Service so the customer application Pods have a stable DNS entry on the cluster:</p>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -f <a href="https://github.com/redhat-developer-demos/istio-tutorial/blob/master/customer/kubernetes/Service.yml">customer/kubernetes/Service.yml</a> -n tutorial</code></pre>
@@ -746,10 +743,13 @@ customer-5f5d9f8767-dmc4f   2/2     Running   0          5m24s</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>spec.replicas</code> for in the <strong>Deployment.yml</strong> is set to 1, so why is there a second container in the deployed Pod? The reason is that Istio injected the sidecar container that will be used to manage network traffic!</p>
+<p>Press Ctrl+C to exit the watch (-w) command when all containers are reporting READY.</p>
 </div>
 <div class="paragraph">
-<p>You can use <code>kubectl describe pods -n tutorial</code> to inspect the customer application Pod and see the Istio annotations and that a second container was automatically added to the Pod spec by the Istio operator.</p>
+<p>The <code>spec.replicas</code> for in the <strong>Deployment.yml</strong> is set to 1, so why is does the <code>get pods</code> command specify that 2 of 2 containers are ready? The reason is that Istio injected the sidecar container that will be used to manage network traffic!</p>
+</div>
+<div class="paragraph">
+<p>You can use <code>kubectl describe pods -n tutorial</code> to inspect the customer application&#8217;s Pod and see the Istio annotations and that a second container was automatically added to the Pod spec by the Istio operator.</p>
 </div>
 </div>
 </div>
@@ -1195,7 +1195,7 @@ $(kubectl get pods -n tutorial |grep recommendation|awk '{ print $1 }'|head -1) 
 </div>
 </div>
 <div class="sect1">
-<h2 id="redeployingcode"><a class="anchor" href="#redeployingcode"></a>Updating Redeploying</h2>
+<h2 id="redeployingcode"><a class="anchor" href="#redeployingcode"></a>Updating &amp; Redeploying</h2>
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
